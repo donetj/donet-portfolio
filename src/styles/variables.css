@@ -1,0 +1,88 @@
+/* ============================================================
+   DESIGN TOKENS — Donet Joseph Portfolio
+   ============================================================ */
+:root {
+  /* ── Brand Colors ── */
+  --gold: #c9a84c;
+  --gold-light: #f0d080;
+  --gold-dim: #7a6030;
+  --gold-ultra-dim: rgba(201, 168, 76, 0.08);
+  --cyan: #00e5ff;
+  --cyan-dim: #004d5c;
+  --cyan-glow: rgba(0, 229, 255, 0.2);
+  --accent-violet: #7c3aed;
+  --accent-rose: #f43f5e;
+
+  /* ── Backgrounds ── */
+  --bg-deep: #020408;
+  --bg-mid: #060c14;
+  --bg-card: rgba(8, 18, 35, 0.7);
+  --bg-card-solid: #081223;
+  --bg-card-hover: rgba(12, 24, 48, 0.85);
+  --bg-elevated: rgba(10, 22, 40, 0.9);
+
+  /* ── Text ── */
+  --text-primary: #e8edf5;
+  --text-secondary: #b0bdd0;
+  --text-dim: #7a8fa8;
+  --text-muted: #4a5f78;
+
+  /* ── Glass ── */
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(201, 168, 76, 0.18);
+  --glass-border-hover: rgba(201, 168, 76, 0.4);
+  --glass-strong: rgba(255, 255, 255, 0.08);
+
+  /* ── Shadows & Glows ── */
+  --glow-gold: 0 0 40px rgba(201, 168, 76, 0.3);
+  --glow-gold-strong: 0 0 60px rgba(201, 168, 76, 0.5);
+  --glow-cyan: 0 0 40px rgba(0, 229, 255, 0.2);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 16px 48px rgba(0, 0, 0, 0.6);
+
+  /* ── Typography ── */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  /* ── Spacing ── */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+
+  /* ── Border Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ── Transitions ── */
+  --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: 0.2s var(--ease-out-expo);
+  --transition-base: 0.3s var(--ease-out-expo);
+  --transition-slow: 0.6s var(--ease-out-expo);
+  --transition-slower: 1s var(--ease-out-expo);
+
+  /* ── Layout ── */
+  --max-width: 1400px;
+  --container-padding: 4rem;
+  --section-padding: 8rem;
+  --nav-height: 70px;
+
+  /* ── Z-Index ── */
+  --z-bg: 0;
+  --z-content: 1;
+  --z-sticky: 100;
+  --z-overlay: 500;
+  --z-nav: 800;
+  --z-modal: 900;
+  --z-intro: 9000;
+  --z-cursor: 99998;
+  --z-cursor-dot: 99999;
+}

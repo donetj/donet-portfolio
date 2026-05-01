@@ -1,0 +1,16 @@
+{
+  "name": "Donet Joseph Portfolio",
+  "short_name": "DJ Portfolio",
+  "description": "IT Business Systems Analyst | ERP SAP MM Specialist",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020408",
+  "theme_color": "#c9a84c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
