@@ -1,100 +1,140 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { gsap } from 'gsap';
+import Counter from './Counter';
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "SAP MM Retail Logistics Sync",
-      company: "Lulu Group International",
-      desc: "Architected a synchronized outbound delivery protocol across 20+ Qatari outlets. Minimized inventory discrepancy and optimized the supply chain flow, establishing a single source of truth for enterprise logistics.",
-      tags: ["SAP MM", "Logistics", "Inventory"]
-    },
-    {
-      title: "Enterprise CRM Lifecycle Integration",
-      company: "Jubeerich Consultancy",
-      desc: "Directed the complete functional integration of a unified CRM system. Bridged 7 disparate departments into a cohesive technical workflow, resulting in 100% adoption and streamlined client lifecycle management.",
-      tags: ["CRM Coordination", "Process Mapping", "QA Validation"]
-    },
-    {
-      title: "Zero-Shrinkage Inventory Strategy",
-      company: "Lulu Group International",
-      desc: "Engineered and implemented rigorous stock variation controls. Leveraged advanced data analytics to identify bottlenecks, reducing shrinkage by 30% and significantly enhancing overall operational margins.",
-      tags: ["Data Analytics", "Process Optimization", "Retail Ops"]
-    }
-  ];
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  const yOffset = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
+  useEffect(() => {
+    // Scanning line animation
+    gsap.to('.scan-line', {
+      top: '100%',
+      duration: 3,
+      repeat: -1,
+      ease: "linear"
+    });
+  }, []);
 
   return (
-    <section id="projects" className="py-32 md:py-48 relative bg-[#080706]">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="flex items-center gap-4 mb-32">
-          <div className="w-12 h-[1px] bg-white/30"></div>
-          <h2 className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold">Featured Solutions</h2>
-        </div>
+    <section id="projects" className="py-32 md:py-48 relative bg-[#080706]" ref={containerRef}>
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
+        
+        {/* Background Parallax Element */}
+        <motion.div 
+          style={{ y: yOffset }}
+          className="absolute top-0 right-0 w-3/4 md:w-1/2 h-full bg-gradient-to-bl from-white/[0.02] to-transparent rounded-3xl -z-10"
+        ></motion.div>
 
-        <div className="flex flex-col gap-32 md:gap-48">
-          {projects.map((proj, idx) => {
-            const cardRef = useRef(null);
-            const { scrollYProgress } = useScroll({
-              target: cardRef,
-              offset: ["start end", "end start"]
-            });
-            const yOffset = useTransform(scrollYProgress, [0, 1], [50, -50]);
+        <div className="flex flex-col xl:flex-row gap-16 md:gap-24 items-center">
+          
+          {/* Left Side Content */}
+          <div className="xl:w-1/2 w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="text-xs uppercase tracking-[0.3em] text-amber-500/80 font-bold mb-6 flex items-center gap-4">
+                <span className="w-8 h-[1px] bg-amber-500/50"></span> 
+                BUSINESS SYSTEMS OPERATIONS
+              </div>
+              
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.1] tracking-tighter text-white">
+                Optimizing Technology, CRM & Enterprise Workflows
+              </h2>
+              
+              <p className="text-gray-400 leading-relaxed text-lg md:text-xl max-w-2xl mb-12">
+                Delivering reliable IT support, SAP MM workflow assistance, CRM lifecycle coordination, and internal business systems continuity across multi-department operations.
+              </p>
+            </motion.div>
+          </div>
+          
+          {/* Right Side: Enterprise Intelligence Dashboard */}
+          <div className="xl:w-1/2 w-full">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="relative rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl p-8 md:p-12 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden group"
+            >
+              {/* Glowing border effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              
+              {/* Ambient inner glow */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
-            return (
-              <div key={idx} ref={cardRef} className="relative group">
-                {/* Background Parallax Element */}
-                <motion.div 
-                  style={{ y: yOffset }}
-                  className="absolute top-0 right-0 w-3/4 md:w-1/2 h-full bg-gradient-to-bl from-white/[0.03] to-transparent rounded-3xl -z-10 group-hover:from-white/[0.06] transition-colors duration-1000"
-                ></motion.div>
+              {/* Scanning Data Line */}
+              <div className="scan-line absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent shadow-[0_0_15px_rgba(245,158,11,0.5)] z-20 pointer-events-none"></div>
 
-                <div className="flex flex-col md:flex-row gap-12 md:gap-24 items-center">
-                  <div className="md:w-1/2">
-                    <motion.div
-                      initial={{ opacity: 0, x: -50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                      <div className="text-xs uppercase tracking-widest text-gray-500 font-medium mb-4 flex items-center gap-3">
-                        <span className="text-white/50 font-mono text-sm">0{idx + 1}</span> 
-                        <span className="w-4 h-[1px] bg-gray-600"></span> 
-                        {proj.company}
-                      </div>
-                      <h3 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter">{proj.title}</h3>
-                      <p className="text-gray-400 leading-relaxed text-lg mb-10 max-w-xl">
-                        {proj.desc}
-                      </p>
-                      <div className="flex flex-wrap gap-3">
-                        {proj.tags.map((tag, tIdx) => (
-                          <span key={tIdx} className="px-4 py-2 border border-white/10 rounded-full text-xs font-mono tracking-wider text-gray-300 uppercase bg-white/5">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
+              {/* Dashboard Content */}
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-10 pb-6 border-b border-white/5">
+                  <div className="text-xs uppercase tracking-[0.2em] text-gray-500 font-mono flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+                    System Status: Active
+                  </div>
+                  <div className="text-[10px] text-gray-600 font-mono tracking-widest uppercase">Intelligent Ops</div>
+                </div>
+
+                {/* Grid of counters */}
+                <div className="grid grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-12 mb-12">
+                  <div className="flex flex-col">
+                    <div className="text-4xl md:text-5xl font-black text-white mb-2 flex items-baseline">
+                      <span className="text-gray-600 mr-1 font-light text-2xl md:text-3xl">0</span>
+                      <Counter value={3} suffix="+" />
+                    </div>
+                    <div className="text-[10px] sm:text-xs uppercase tracking-widest text-gray-400 font-semibold">Years Experience</div>
                   </div>
                   
-                  <div className="md:w-1/2 w-full">
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                      className="aspect-[4/3] w-full rounded-2xl overflow-hidden relative glass-panel"
-                    >
-                      {/* Abstract Data Visualization / Image placeholder */}
-                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-800 via-gray-900 to-black opacity-50 mix-blend-overlay"></div>
-                      <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23ffffff\\' fill-opacity=\\'1\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-gray-600 font-mono text-sm tracking-[0.5em] uppercase">Data Stream {idx + 1}</span>
-                      </div>
-                    </motion.div>
+                  <div className="flex flex-col">
+                    <div className="text-4xl md:text-5xl font-black text-white mb-2 flex items-baseline">
+                      <span className="text-gray-600 mr-1 font-light text-2xl md:text-3xl">0</span>
+                      <Counter value={7} suffix="" />
+                    </div>
+                    <div className="text-[10px] sm:text-xs uppercase tracking-widest text-gray-400 font-semibold">Depts Connected</div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <div className="text-4xl md:text-5xl font-black text-white mb-2">
+                      <Counter value={200} suffix="+" />
+                    </div>
+                    <div className="text-[10px] sm:text-xs uppercase tracking-widest text-gray-400 font-semibold">Users Assisted</div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <div className="text-4xl md:text-5xl font-black text-white mb-2 flex items-baseline">
+                      <span className="text-gray-600 mr-1 font-light text-2xl md:text-3xl">0</span>
+                      <Counter value={3} suffix="" />
+                    </div>
+                    <div className="text-[10px] sm:text-xs uppercase tracking-widest text-gray-400 font-semibold">Enterprise Platforms</div>
                   </div>
                 </div>
+
+                {/* Workflow Tags */}
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center justify-between p-4 rounded-lg bg-white/[0.02] border border-white/5 group-hover:bg-white/[0.04] transition-colors duration-300">
+                    <div className="text-xs sm:text-sm font-semibold text-gray-300 tracking-wide">SAP MM Workflow Support</div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-amber-500/80 shadow-[0_0_8px_rgba(245,158,11,0.5)]"></div>
+                  </div>
+                  <div className="flex items-center justify-between p-4 rounded-lg bg-white/[0.02] border border-white/5 group-hover:bg-white/[0.04] transition-colors duration-300">
+                    <div className="text-xs sm:text-sm font-semibold text-gray-300 tracking-wide">CRM Lifecycle Coordination</div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500/80 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
+                  </div>
+                </div>
+                
               </div>
-            );
-          })}
+            </motion.div>
+          </div>
+          
         </div>
       </div>
     </section>
