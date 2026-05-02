@@ -1,62 +1,86 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import Counter from './Counter';
+import React, { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const containerRef = useRef(null);
+  const textRef = useRef(null);
 
-  const stats = [
-    { value: 8, suffix: "+", label: "Years Experience" },
-    { value: 100, suffix: "+", label: "Users Supported" },
-    { value: 20, suffix: "+", label: "Outlets Coordinated" },
-    { value: 7, suffix: "", label: "Depts Transformed" }
-  ];
+  useEffect(() => {
+    const chars = textRef.current.querySelectorAll('.reveal-text');
+    
+    gsap.fromTo(chars, 
+      { opacity: 0.1 },
+      {
+        opacity: 1,
+        stagger: 0.05,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 70%",
+          end: "bottom 50%",
+          scrub: 1,
+        }
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
+  const narrative = "I am a dedicated IT Support Specialist and SAP MM Professional. I specialize in bridging the gap between complex business requirements and reliable technology solutions, driving process optimization and system intelligence across enterprise operations.";
 
   return (
-    <section id="about" className="py-24 md:py-32 relative z-10" ref={ref}>
+    <section id="about" className="py-32 md:py-48 relative z-10" ref={containerRef}>
       <div className="container mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          {/* Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+        <div className="flex flex-col items-start max-w-5xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-4 mb-12"
           >
-            <h2 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-4 font-semibold text-center lg:text-left">Professional Identity</h2>
-            <h3 className="text-3xl md:text-5xl font-bold mb-8 leading-tight text-center lg:text-left">
-              The bridge between <span className="text-gray-400 italic">business objectives</span> and <span className="text-white">technical reality.</span>
-            </h3>
-            
-            <div className="space-y-6 text-gray-400 text-base md:text-lg leading-relaxed text-center lg:text-left">
-              <p>
-                With <strong>8+ years of progressive experience</strong>, I transform complex business needs into streamlined, intelligent IT systems that drive measurable outcomes. My career spans enterprise retail IT, ERP SAP MM implementations, and full-stack business systems support.
-              </p>
-              <p>
-                From coordinating SAP MM outbound deliveries across 20+ Lulu outlets in Qatar to leading CRM functional enhancements for multi-department operations, I bring a rare combination of technical depth and executive business acumen.
-              </p>
-            </div>
+            <div className="w-12 h-[1px] bg-white/30"></div>
+            <span className="text-xs tracking-[0.3em] uppercase text-gray-400 font-semibold">Professional Identity</span>
           </motion.div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-            {stats.map((stat, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: 0.2 + (index * 0.1) }}
-                className="glass-panel p-8 flex flex-col justify-center items-start hover:bg-white/[0.08] transition-colors duration-300 hover-target"
-              >
-                <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                  <Counter value={stat.value} suffix={stat.suffix} />
-                </div>
-                <div className="text-sm md:text-base text-gray-500 font-medium uppercase tracking-wider">{stat.label}</div>
-              </motion.div>
+          <h2 
+            ref={textRef} 
+            className="text-3xl md:text-5xl lg:text-7xl font-medium leading-[1.2] tracking-tight"
+          >
+            {narrative.split(' ').map((word, i) => (
+              <span key={i} className="inline-block mr-[0.25em]">
+                {word.split('').map((char, j) => (
+                  <span key={j} className="reveal-text inline-block">{char}</span>
+                ))}
+              </span>
             ))}
-          </div>
-
+          </h2>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 w-full border-t border-white/10 pt-12"
+          >
+            <div>
+              <h4 className="text-white font-semibold mb-2 text-lg">System Intelligence</h4>
+              <p className="text-gray-400 text-sm leading-relaxed">Implementing and supporting enterprise tools that empower data-driven decision making.</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-2 text-lg">Process Optimization</h4>
+              <p className="text-gray-400 text-sm leading-relaxed">Streamlining workflows through SAP MM and CRM integrations to maximize operational efficiency.</p>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-2 text-lg">Business Reliability</h4>
+              <p className="text-gray-400 text-sm leading-relaxed">Ensuring zero-downtime environments and seamless support for mission-critical business systems.</p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -18,12 +18,10 @@
   }
 
   body {
-    @apply bg-[#050505] text-primary overflow-x-hidden;
-    /* Subtle dot grid background */
-    background-image:
-      radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size));
-    background-size: var(--dot-space) var(--dot-space);
-    background-position: 0 0;
+    @apply bg-[#080706] text-primary overflow-x-hidden;
+    /* Subtle warm radial gradient for depth (espresso/gold tones) */
+    background-image: radial-gradient(circle at 0% 50%, rgba(70, 50, 30, 0.25) 0%, rgba(8, 7, 6, 1) 70%);
+    background-attachment: fixed;
   }
 
   /* Lenis Smooth Scroll */

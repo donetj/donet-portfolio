@@ -1,25 +1,28 @@
-import React, { useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
 import CustomCursor from './components/CustomCursor';
 import Navigation from './components/Navigation';
+import Loader from './components/Loader';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import SkillsBento from './components/SkillsBento';
+import Impact from './components/Impact';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Force scroll to top on refresh
     window.history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
 
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // smooth easing
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
@@ -44,18 +47,31 @@ function App() {
   return (
     <>
       <div className="grain-overlay"></div>
-      <Navigation />
+      <CustomCursor />
+      
+      <AnimatePresence mode="wait">
+        {loading && <Loader key="loader" onComplete={() => setLoading(false)} />}
+      </AnimatePresence>
 
-      <main className="relative z-10">
-        <Hero />
-        <About />
-        <Experience />
-        <SkillsBento />
-        <Projects />
-        <Contact />
-      </main>
-
-      <Footer />
+      {!loading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+        >
+          <Navigation />
+          <main className="relative z-10">
+            <Hero />
+            <About />
+            <SkillsBento />
+            <Experience />
+            <Impact />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+        </motion.div>
+      )}
     </>
   );
 }
