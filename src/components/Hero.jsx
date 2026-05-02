@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { gsap } from 'gsap';
+import Counter from './Counter';
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -19,12 +20,6 @@ const Hero = () => {
     tl.fromTo('.hero-title-word',
       { opacity: 0, y: 40, rotateX: -45 },
       { opacity: 1, y: 0, rotateX: 0, duration: 1, stagger: 0.08, ease: "power3.out", delay: 0.2 }
-    )
-    // Subtitle reveal
-    .fromTo('.hero-subtitle-item',
-      { opacity: 0, x: -20 },
-      { opacity: 1, x: 0, duration: 0.8, stagger: 0.1, ease: "power2.out" },
-      "-=0.5"
     )
     // Description reveal
     .fromTo('.hero-desc',
@@ -60,8 +55,7 @@ const Hero = () => {
 
   }, []);
 
-  const headline = "Optimizing Business Systems Through Reliable Technology";
-  const subtitles = ["SAP MM Functional Support", "CRM Coordination", "IT Infrastructure", "Process Reporting"];
+  const headline = "Reliable Technology Support Across Systems, ERP & Business Operations";
   const myName = "DONET JOSEPH";
 
   return (
@@ -85,26 +79,29 @@ const Hero = () => {
         <div className="flex flex-col lg:flex-row gap-16 items-center lg:items-start justify-between">
           
           {/* Left Content Area */}
-          <div className="w-full lg:w-3/5 max-w-4xl pt-8">
+          <div className="w-full lg:w-1/2 xl:w-3/5 max-w-4xl pt-8">
             
             {/* Color Shimmering Name */}
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              className="mb-8 flex items-center gap-4"
+              className="mb-8 flex flex-col items-start gap-4"
             >
-              <span className="w-8 h-[1px] bg-white/30"></span>
-              <div className="text-sm md:text-base font-black tracking-[0.4em] uppercase">
+              <div className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-[0.1em] md:tracking-[0.2em] uppercase whitespace-nowrap">
                 {myName.split("").map((letter, i) => (
                   <span key={i} className="name-letter inline-block text-white">
                     {letter === " " ? "\u00A0" : letter}
                   </span>
                 ))}
               </div>
+              <div className="flex items-center gap-4">
+                <span className="w-8 h-[1px] bg-amber-500/50"></span>
+                <span className="text-xs uppercase tracking-[0.3em] text-amber-500/80 font-bold">ENTERPRISE IT & BUSINESS SYSTEMS</span>
+              </div>
             </motion.div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[1.05] mb-8" style={{ perspective: '1000px' }}>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-[1.05] mb-8" style={{ perspective: '1000px' }}>
               <div className="flex flex-wrap gap-x-3 md:gap-x-5 gap-y-2">
                 {headline.split(" ").map((word, i) => (
                   <div key={i} className="overflow-hidden pb-1">
@@ -116,21 +113,8 @@ const Hero = () => {
               </div>
             </h1>
 
-            <div className="flex flex-wrap items-center gap-3 mb-8">
-              {subtitles.map((sub, index) => (
-                <React.Fragment key={index}>
-                  <span className="hero-subtitle-item opacity-0 text-sm md:text-base font-semibold tracking-widest text-amber-500/80 uppercase">
-                    {sub}
-                  </span>
-                  {index < subtitles.length - 1 && (
-                    <span className="hero-subtitle-item opacity-0 text-gray-600">•</span>
-                  )}
-                </React.Fragment>
-              ))}
-            </div>
-
             <p className="hero-desc opacity-0 text-lg md:text-xl text-gray-400 max-w-2xl mb-12 leading-relaxed">
-              Supporting enterprise workflows, internal users, and operational continuity through intelligent systems management and business-focused IT solutions.
+              Delivering L1/L2 IT support, SAP MM workflow assistance, CRM coordination, application troubleshooting, and operational systems continuity across enterprise business environments.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -150,39 +134,52 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Floating Stats Card */}
-          <div className="w-full lg:w-2/5 flex justify-center lg:justify-end mt-12 lg:mt-0 relative">
-            <div className="hero-floating-card opacity-0 glass-panel p-8 md:p-10 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl relative overflow-hidden w-full max-w-sm">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          {/* Right Floating Stats Dashboard */}
+          <div className="w-full lg:w-1/2 xl:w-2/5 flex justify-center lg:justify-end mt-12 lg:mt-0 relative">
+            <div className="hero-floating-card opacity-0 glass-panel p-8 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl relative overflow-hidden w-full max-w-md">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
               
-              <div className="flex flex-col gap-8 relative z-10">
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]"></div>
-                  <div>
-                    <div className="text-white font-bold text-lg mb-1">8+ Years Experience</div>
-                    <div className="text-gray-500 text-sm leading-relaxed">Proven track record in enterprise environments.</div>
+              <div className="flex flex-col gap-6 relative z-10">
+                
+                <div className="grid grid-cols-2 gap-6 pb-6 border-b border-white/5">
+                  <div className="flex flex-col">
+                    <div className="text-3xl font-black text-white mb-1 flex items-baseline">
+                      <span className="text-gray-600 mr-1 font-light text-xl">0</span>
+                      <Counter value={7} suffix="+" />
+                    </div>
+                    <div className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Years Experience</div>
                   </div>
-                </div>
-                
-                <div className="w-full h-[1px] bg-white/5"></div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-                  <div>
-                    <div className="text-white font-bold text-lg mb-1">Multi-Department System Coordination</div>
-                    <div className="text-gray-500 text-sm leading-relaxed">Bridging technical execution across diverse units.</div>
+                  
+                  <div className="flex flex-col">
+                    <div className="text-3xl font-black text-white mb-1 flex items-baseline">
+                      <Counter value={10} suffix="+" />
+                    </div>
+                    <div className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Depts Coordinated</div>
                   </div>
                 </div>
 
-                <div className="w-full h-[1px] bg-white/5"></div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)] animate-pulse"></div>
-                  <div>
-                    <div className="text-white font-bold text-lg mb-1">Open to Global Opportunities</div>
-                    <div className="text-gray-500 text-sm leading-relaxed">Ready to relocate and drive international projects.</div>
+                <div className="flex flex-col pb-6 border-b border-white/5">
+                  <div className="text-3xl font-black text-white mb-1">
+                    <Counter value={200} suffix="+" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Users Assisted</div>
+                </div>
+
+                <div className="flex flex-col gap-4 pt-2">
+                  <div className="flex items-center gap-4">
+                    <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]"></div>
+                    <div className="text-sm font-semibold text-gray-300">SAP MM & ERP Workflow Support</div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
+                    <div className="text-sm font-semibold text-gray-300">CRM Lifecycle Coordination</div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)] animate-pulse"></div>
+                    <div className="text-sm font-semibold text-gray-300">L1/L2 IT Infrastructure Support</div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

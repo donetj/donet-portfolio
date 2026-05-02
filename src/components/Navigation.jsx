@@ -25,11 +25,7 @@ const Navigation = () => {
         scrolled ? 'bg-background/70 backdrop-blur-lg border-b border-white/5 py-3 shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        {/* Logo */}
-        <a href="#home" className="text-xl font-bold tracking-tighter text-white hover:opacity-80 transition-opacity">
-          DONET<span className="text-gray-500">.</span>
-        </a>
+      <div className="container mx-auto px-6 md:px-12 flex justify-end items-center">
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-8">

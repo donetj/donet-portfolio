@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import Counter from './Counter';
 
 const Experience = () => {
   const containerRef = useRef(null);
@@ -20,19 +19,38 @@ const Experience = () => {
       period: "2026 – Present",
       company: "Jubeerich Consultancy Pvt Ltd",
       role: "IT Executive — CRM & Business Systems",
-      desc: <>Directing CRM functional coordination across <Counter value={7} /> distinct operational departments. Leading the full CRM lifecycle from requirement capture and developer liaison to final delivery validation, ensuring exact alignment with strategic business goals.</>
+      bullets: [
+        "Coordinated CRM workflows across 10+ operational departments including CRE, Front Office, Counsellors, Country Managers, Application, Visa, and Travel Desk teams",
+        "Managed user onboarding, system access, and internal business application support",
+        "Provided Excel-based operational reporting and management summaries",
+        "Liaised with external software developers for CRM modifications and issue resolution",
+        "Maintained office IT assets, printers, attendance devices, and network continuity",
+        "Supported lead lifecycle visibility, follow-up monitoring, and process tracking within CRM"
+      ]
     },
     {
       period: "2019 – 2025",
-      company: "Lulu Group International (Qatar)",
+      company: "Lulu Group International",
       role: "Senior IT Support Specialist",
-      desc: <>Engineered enterprise-scale IT support frameworks for a premier retail group. Orchestrated SAP MM outbound deliveries across <Counter value={20} suffix="+" /> international outlets. Managed POS and Windows infrastructure to guarantee seamless operations for <Counter value={100} suffix="+" /> users.</>
+      bullets: [
+        "Supported Windows Server environments, VMware systems, POS devices, scanners, and printers",
+        "Managed Active Directory users, groups, permissions, and organizational policies",
+        "Assisted SAP MM inventory workflows including goods movement, stock transfer, and procurement support",
+        "Maintained CRM loyalty systems and customer operational data",
+        "Delivered stock, sales, and reconciliation reports for retail operations continuity",
+        "Provided enterprise L1/L2 hardware and application troubleshooting"
+      ]
     },
     {
       period: "2018 – 2019",
-      company: "Syscon Software (India)",
+      company: "Syscon Software",
       role: "Application Support Engineer",
-      desc: "Delivered comprehensive technical support for Oracle VB business applications. Executed the full software support lifecycle, from rigorous pre-deployment testing to successful client-side implementation and training."
+      bullets: [
+        "Installed and supported Oracle/VB based business applications",
+        "Delivered end-user troubleshooting and application issue resolution",
+        "Assisted report generation, system testing, and implementation support",
+        "Supported operational monitoring for sales and inventory systems"
+      ]
     }
   ];
 
@@ -44,23 +62,23 @@ const Experience = () => {
           <h2 className="text-xs uppercase tracking-[0.3em] text-gray-400 font-semibold">Professional Trajectory</h2>
         </div>
 
-        <div className="relative pl-8 md:pl-0 md:max-w-5xl md:mx-auto">
+        <div className="relative pl-8 md:pl-0 md:max-w-6xl md:mx-auto">
           {/* Animated Line */}
           <div className="absolute left-[3px] md:left-1/2 top-0 bottom-0 w-[1px] bg-white/10">
             <motion.div 
-              className="absolute top-0 left-0 right-0 bg-gradient-to-b from-white via-gray-400 to-transparent origin-top"
+              className="absolute top-0 left-0 right-0 bg-gradient-to-b from-amber-500 via-white to-transparent origin-top"
               style={{ scaleY, height: '100%' }}
             />
           </div>
 
           {experiences.map((exp, index) => (
-            <div key={index} className={`relative mb-32 md:w-1/2 ${index % 2 === 0 ? 'md:ml-auto md:pl-20' : 'md:mr-auto md:pr-20 md:text-right'}`}>
+            <div key={index} className={`relative mb-32 md:w-1/2 ${index % 2 === 0 ? 'md:ml-auto md:pl-20' : 'md:mr-auto md:pr-20'}`}>
               
               {/* Glowing Node */}
-              <div className={`absolute top-4 w-4 h-4 rounded-full bg-black border-2 border-white z-10 flex items-center justify-center
+              <div className={`absolute top-4 w-4 h-4 rounded-full bg-black border-2 border-white/50 z-10 flex items-center justify-center transition-colors duration-500
                 ${index % 2 === 0 ? 'left-[-6px] md:-left-[8px]' : 'left-[-6px] md:left-auto md:-right-[8px]'}`} 
               >
-                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                <div className="w-1.5 h-1.5 bg-amber-500 rounded-full shadow-[0_0_8px_rgba(245,158,11,0.8)]"></div>
               </div>
 
               <motion.div
@@ -70,12 +88,18 @@ const Experience = () => {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="group"
               >
-                <div className="text-sm text-gray-500 tracking-[0.2em] uppercase mb-4">{exp.period}</div>
-                <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight group-hover:text-gray-300 transition-colors">{exp.role}</h3>
-                <div className="text-lg text-gray-400 mb-6 font-medium">{exp.company}</div>
-                <p className="text-gray-400 leading-relaxed text-base md:text-lg">
-                  {exp.desc}
-                </p>
+                <div className="text-xs text-amber-500/80 tracking-[0.2em] uppercase mb-4 font-semibold">{exp.period}</div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight group-hover:text-gray-300 transition-colors">{exp.role}</h3>
+                <div className="text-base text-gray-400 mb-8 font-medium">{exp.company}</div>
+                
+                <ul className="space-y-4">
+                  {exp.bullets.map((bullet, bIdx) => (
+                    <li key={bIdx} className="flex items-start gap-4">
+                      <span className="text-white/30 mt-1.5 text-xs">▹</span>
+                      <span className="text-gray-400 leading-relaxed text-sm md:text-base">{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             </div>
           ))}
